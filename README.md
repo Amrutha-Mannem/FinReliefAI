@@ -97,7 +97,30 @@ The project was developed using a structured Agile methodology, divided into 6 c
 5. **Epic 5: Testing & Optimization** - System testing across multiple financial scenarios, backend error handling, AI fallback management, and secure session optimization.
 6. **Epic 6: Finalization & Deployment** - GitHub version control management, project cleanup, modular folder organization, and production readiness configuration.
 ---
+Terminal 1: Start the Backend Server
+Open a new terminal in VS Code (Click the + icon in the terminal panel).
+Run these commands one by one:
+powershell
+# 1. Go to the backend folder
+cd C:\clg\FinReliefAI\backend
 
+# 2. Activate the virtual environment
+venv\Scripts\activate
+
+# 3. Start the FastAPI server
+uvicorn main:app --reload
+✅ Success: You will see INFO: Uvicorn running on http://127.0.0.1:8000
+Terminal 2: Start the Frontend Server
+Open a second new terminal in VS Code (Click the + icon again).
+Run these commands one by one:
+powershell
+
+# 1. Go to the frontend folder
+cd C:\clg\FinReliefAI\frontend
+
+# 2. Start the React server
+npm run dev
+✅ Success: You will see Local: http://localhost:5173/
 ## 🎯 Project Conclusion
 
 **FinRelief AI** successfully demonstrates the application of modern full-stack web technologies and intelligent AI-powered negotiation systems in improving the efficiency of debt management. By integrating Google Gemini AI, the system enhances the borrower experience by providing dynamic, personalized settlement recommendations based on financial profiles and debt stress levels. 
