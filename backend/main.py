@@ -1,3 +1,6 @@
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,7 +16,7 @@ from database import engine, Base, get_db
 from models import User, FinancialProfile, Loan, SettlementPrediction, AIHistory
 from financial_engine import calculate_financial_health, calculate_settlement
 from ai_engine import generate_negotiation_letter
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 # Load environment variables
 load_dotenv()
@@ -31,7 +34,22 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# Serve Frontend Static Files
+frontend_dist = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "dist")
+if os.path.exists(frontend_dist):
+    app.mount("/", StaticFiles(directory=frontend_dist, html=True), name="static")
 
+# SPA Fallback Route
+@app.get("/{full_path:path}")
+async def serve_spa(full_path: str):
+    # Skip API routes and docs
+    if full_path.startswith("api/") or full_path in ["docs", "openapi.json", "redoc"]:
+        return {"detail": "Not Found"}
+    
+    index_path = os.path.join(frontend_dist, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return {"message": "Frontend not built"}
 # JWT Configuration
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-this")
