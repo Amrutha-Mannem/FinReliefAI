@@ -1,5 +1,5 @@
 fastapi==0.115.6
-uvicorn==0.27.0
+uvicorn==0.32.0
 sqlalchemy==2.0.25
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
@@ -7,6 +7,6 @@ Werkzeug==3.0.1
 python-dotenv==1.0.0
 google-generativeai==0.3.2
 python-multipart==0.0.6
-cryptography==42.0.0
-pydantic==2.10.3
-# Remove the pydantic-core line - let pip handle it
+cryptography==41.0.7
+pydantic==2.9.2
+pydantic-core==2.23.4
