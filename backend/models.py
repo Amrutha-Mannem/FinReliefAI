@@ -5,6 +5,7 @@ from datetime import datetime
 
 class User(Base):
     __tablename__ = "users"
+    
     user_id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     email = Column(String, unique=True, index=True)
@@ -18,6 +19,7 @@ class User(Base):
 
 class FinancialProfile(Base):
     __tablename__ = "financial_profiles"
+    
     profile_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.user_id"), unique=True)
     monthly_income = Column(Float)
@@ -31,6 +33,7 @@ class FinancialProfile(Base):
 
 class Loan(Base):
     __tablename__ = "loans"
+    
     loan_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.user_id"))
     lender_name = Column(String)
@@ -45,6 +48,7 @@ class Loan(Base):
 
 class SettlementPrediction(Base):
     __tablename__ = "settlement_predictions"
+    
     settlement_id = Column(Integer, primary_key=True, index=True)
     loan_id = Column(Integer, ForeignKey("loans.loan_id"))
     user_id = Column(Integer, ForeignKey("users.user_id"))
@@ -57,6 +61,7 @@ class SettlementPrediction(Base):
 
 class AIHistory(Base):
     __tablename__ = "ai_history"
+    
     history_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.user_id"))
     generated_content = Column(String)
